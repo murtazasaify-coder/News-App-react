@@ -7,17 +7,46 @@ export class News extends Component {
     super();
     this.state={
       articles:[],
-      loading:false
+      loading:false,
+      page:1,
+      
 
     }
   }
 
   async componentDidMount(){
-      let url="https://newsapi.org/v2/top-headlines?country=in&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b";
+      console.log(this.state.page+"in normal");
+      let url="https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=1&pagesize=20";
       let data= await fetch(url);
       let parseddata=await data.json();
-      this.setState({articles : parseddata.articles});
+      this.setState({
+        articles : parseddata.articles,
+        totalResults:parseddata.totalResults});
    }
+   previousPage= async()=>{
+
+    let url=`https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page-1}&pagesize=20`;
+    let data= await fetch(url);
+    let parseddata=await data.json();
+
+    this.setState({
+      articles : parseddata.articles,
+      page:this.state.page-1
+    });
+    
+   }
+   nextPage= async()=>{
+       
+      let url=`https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page+1}&pagesize=20`;
+      let data= await fetch(url);
+      let parseddata=await data.json();
+
+      this.setState({
+        articles : parseddata.articles,
+        page:this.state.page+1
+      });
+    
+  }
 
 
   render() {
@@ -32,6 +61,10 @@ export class News extends Component {
                                 </div>
                })}
             </div>
+        </div>
+        <div className="container d-flex justify-content-between">
+            <button type="button" className="btn btn-dark mb-2"  disabled={this.state.page<=1} onClick={this.previousPage}>&laquo; Previous</button>
+            <button type="button" className="btn btn-dark mb-2" disabled={(this.state.page+1)>(Math.ceil(this.state.totalResults/20))} onClick={this.nextPage}>Next &raquo;</button>
         </div>
       </div>
     )
