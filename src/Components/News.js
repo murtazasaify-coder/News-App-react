@@ -1,7 +1,19 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner1'
+import PropTypes  from 'prop-types';
 export class News extends Component {
+ 
+  static defaultProps = {
+    country:'in',
+    pagesize:'5'
+  }
+
+
+  static PropsTypes = {
+    country:PropTypes.string,
+    pagesize:PropTypes.number,
+  }
   
     constructor(){
     super();
@@ -12,11 +24,11 @@ export class News extends Component {
       
 
     }
-  }
+    }
 
   async componentDidMount(){
       
-      let url=`https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=1&pagesize=${this.props.pagesize}`;
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=1&pagesize=${this.props.pagesize}`;
       this.setState({loading:true});
       let data= await fetch(url);
       let parseddata=await data.json();
@@ -28,7 +40,7 @@ export class News extends Component {
    }
    previousPage= async()=>{
 
-    let url=`https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
+    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
     this.setState({loading:true});
     let data= await fetch(url);
     let parseddata=await data.json();
@@ -42,7 +54,7 @@ export class News extends Component {
    }
    nextPage= async()=>{
        
-      let url=`https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
       this.setState({loading:true});
       let data= await fetch(url);
       let parseddata=await data.json();

@@ -4,12 +4,13 @@ import React, { Component } from 'react'
 import Navbar from './Components/Navbar';
 import News from './Components/News';
 
+
 export default class App extends Component {
   render() {
     return (
       <div>
        <Navbar/>
-       <News pagesize={5}/>
+       <News pagesize={5} country="in" />
       
       </div>
     )
