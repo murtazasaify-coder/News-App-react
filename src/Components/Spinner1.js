@@ -3,7 +3,7 @@ import loading from './Loading.gif'
 export class spinner extends Component {
   render() {
     return (
-      <div className='text-center ' style={{marginTop:'10px'}}>
+      <div className='text-center ' style={{marginTop:'15px'}}>
         <img src={loading} alt="loading" />
       </div>
     )

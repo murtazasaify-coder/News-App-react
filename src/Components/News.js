@@ -6,13 +6,15 @@ export class News extends Component {
  
   static defaultProps = {
     country:'in',
-    pagesize:'5'
+    pagesize:'5',
+    category:'general'
   }
 
 
   static PropsTypes = {
     country:PropTypes.string,
     pagesize:PropTypes.number,
+    category:PropTypes.string
   }
   
     constructor(){
@@ -28,7 +30,7 @@ export class News extends Component {
 
   async componentDidMount(){
       
-      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=1&pagesize=${this.props.pagesize}`;
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=1&pagesize=${this.props.pagesize}`;
       this.setState({loading:true});
       let data= await fetch(url);
       let parseddata=await data.json();
@@ -40,7 +42,7 @@ export class News extends Component {
    }
    previousPage= async()=>{
 
-    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
+    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
     this.setState({loading:true});
     let data= await fetch(url);
     let parseddata=await data.json();
@@ -54,7 +56,7 @@ export class News extends Component {
    }
    nextPage= async()=>{
        
-      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=business&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
+      let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d2bfd08eeb9241a4aab7ab55518ca31b&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
       this.setState({loading:true});
       let data= await fetch(url);
       let parseddata=await data.json();
@@ -83,8 +85,8 @@ export class News extends Component {
             </div>
         </div>
         <div className="container d-flex justify-content-between">
-            <button type="button" className="btn btn-dark mb-2"  disabled={this.state.page<=1 || this.state.loading} onClick={this.previousPage}>&laquo; Previous</button>
-            <button type="button" className="btn btn-dark mb-2" disabled={(this.state.page+1)>(Math.ceil(this.state.totalResults/this.props.pagesize))||this.state.loading} onClick={this.nextPage}>Next &raquo;</button>
+           {!this.state.loading && <button type="button" className="btn btn-dark mb-2"  disabled={this.state.page<=1 } onClick={this.previousPage}>&laquo; Previous</button>} 
+           {!this.state.loading && <button type="button" className="btn btn-dark mb-2" disabled={(this.state.page+1)>(Math.ceil(this.state.totalResults/this.props.pagesize))} onClick={this.nextPage}>Next &raquo;</button>}
         </div>
       </div>
     )
