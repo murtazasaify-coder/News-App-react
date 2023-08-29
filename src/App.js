@@ -20,25 +20,25 @@ export default class App extends Component {
             <Navbar/>
 
             <Routes>
-                <Route   path="/" element={ <News pagesize={this.pagesize} country="in" category="general" />} />
+                <Route  key ="general" path="/" element={ <News pagesize={this.pagesize} country="in" category="general" />} />
             </Routes>
             <Routes>
-                <Route  path="/business" element={ <News pagesize={this.pagesize} country="in" category="business" />} />
+                <Route key ="business" path="/business" element={ <News pagesize={this.pagesize} country="in" category="business" />} />
             </Routes>
             <Routes>
-                <Route  path="/entertainment" element={ <News pagesize={this.pagesize} country="in" category="entertainment" />}/>
+                <Route key ="entertainment" path="/entertainment" element={ <News pagesize={this.pagesize} country="in" category="entertainment" />}/>
              </Routes>
             <Routes>
-                <Route path="/health" element={ <News pagesize={this.pagesize} country="in" category="health" />} />
+                <Route key ="health" path="/health" element={ <News pagesize={this.pagesize} country="in" category="health" />} />
             </Routes>
             <Routes>
-                <Route  path="/science" element={ <News pagesize={this.pagesize} country="in" category="science" />} />
+                <Route  key ="science" path="/science" element={ <News pagesize={this.pagesize} country="in" category="science" />} />
             </Routes>
             <Routes>
-                <Route  path="/sports" element={ <News pagesize={this.pagesize} country="in" category="sports" />} />
+                <Route  key ="sports" path="/sports" element={ <News pagesize={this.pagesize} country="in" category="sports" />} />
             </Routes>
             <Routes>
-                <Route  path="/technology" element={ <News pagesize={this.pagesize} country="in" category="technology" />}/>
+                <Route  key ="technology" path="/technology" element={ <News pagesize={this.pagesize} country="in" category="technology" />}/>
             </Routes>
          </BrowserRouter>
       </div>
