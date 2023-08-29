@@ -3,6 +3,7 @@ import NewsItem from './NewsItem'
 import Spinner from './Spinner1'
 import PropTypes  from 'prop-types';
 import InfiniteScroll from "react-infinite-scroll-component";
+
 export class News extends Component {
   static defaultProps = {
     country:'in',
@@ -30,14 +31,18 @@ export class News extends Component {
   }
 
     async fetchfunc(){
+      this.props.setProgress(10);
       let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=bc9504c778ec4da183f80ecb6b464346&page=${this.state.page}&pagesize=${this.props.pagesize}`;
       let data= await fetch(url);
       let parseddata=await data.json();
+      this.props.setProgress(30);
+      
       this.setState({
         articles : parseddata.articles,
         totalResults:parseddata.totalResults,
         loading:false,
       });
+      this.props.setProgress(100);
       console.log("artilcles" + this.state.articles.length +"totalrsults"+this.state.totalResults);
     }
 
