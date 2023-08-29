@@ -13,9 +13,11 @@ import {
 
 export default class App extends Component {
 
+  apiKey=process.env.REACT_APP_NEWS_API
   state={
     progress:0
   }
+  // apiKey="bc9504c778ec4da183f80ecb6b464346"
 
   setProgress=(progress)=>{
     this.setState(
@@ -39,25 +41,25 @@ export default class App extends Component {
             <Navbar/>
 
             <Routes>
-                <Route  key ="general" path="/" element={ <News setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="general" />} />
+                <Route  key ="general" path="/" element={ <News apiKey={this.apiKey} setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="general" />} />
             </Routes>
             <Routes>
-                <Route  key ="business" path="/business" element={ <News setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="business" />} />
+                <Route  key ="business" path="/business" element={ <News apiKey={this.apiKey} setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="business" />} />
             </Routes>
             <Routes>
-                <Route   key ="entertainment" path="/entertainment" element={ <News setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="entertainment" />}/>
+                <Route   key ="entertainment" path="/entertainment" element={ <News apiKey={this.apiKey} setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="entertainment" />}/>
              </Routes>
             <Routes>
-                <Route key ="health" path="/health" element={ <News setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="health" />} />
+                <Route key ="health" path="/health" element={ <News apiKey={this.apiKey} setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="health" />} />
             </Routes>
             <Routes>
-                <Route   key ="science" path="/science" element={ <News setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="science" />} />
+                <Route   key ="science" path="/science" element={ <News apiKey={this.apiKey} setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="science" />} />
             </Routes>
             <Routes>
-                <Route   key ="sports" path="/sports" element={ <News setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="sports" />} />
+                <Route   key ="sports" path="/sports" element={ <News apiKey={this.apiKey} setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="sports" />} />
             </Routes>
             <Routes>
-                <Route   key ="technology" path="/technology" element={ <News setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="technology" />}/>
+                <Route   key ="technology" path="/technology" element={ <News apiKey={this.apiKey} setProgress={this.setProgress} pagesize={this.pagesize} country="in" category="technology" />}/>
             </Routes>
          </BrowserRouter>
       </div>
