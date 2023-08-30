@@ -10,36 +10,35 @@ const News =(props)=> {
   const [loading,setLoading]=useState(true)
   const [page,setPage]=useState(1)
   const [totalResults,settotalResults]=useState(0)
-  // document.title=`${this.capfirst(props.category)}-NewsMonkey`;
   
   const capfirst=(string)=> {
     return string[0].toUpperCase() +string.slice(1);
-                         }
+  }
+  
+  
+  const  fetchfunc= async()=>{
+    props.setProgress(10);
+    let url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pagesize=${props.pagesize}`;
+    setLoading(true);
+    let data= await fetch(url);
+    let parseddata=await data.json();
+    props.setProgress(30);
+    
+    setArticles(parseddata.articles);
+    settotalResults(parseddata.totalResults);
+    setLoading(false);
+    
+    props.setProgress(100);
+    console.log("artilcles" + articles.length +"totalrsults"+totalResults);
+  }
+  
+  useEffect(()=>{
+     document.title=`${capfirst(props.category)}-NewsMonkey`;
+    fetchfunc();
+  },[])
   
 
-    const  fetchfunc= async()=>{
-      props.setProgress1(10);
-      let url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pagesize=${props.pagesize}`;
-      setLoading(true);
-      let data= await fetch(url);
-      let parseddata=await data.json();
-      props.setProgress1(30);
-      
-      setArticles(parseddata.articles);
-      settotalResults(parseddata.totalResults);
-      setLoading(false);
-      
-      props.setProgress1(100);
-      console.log("artilcles" + articles.length +"totalrsults"+totalResults);
-    }
-
-    useEffect(()=>{
-      fetchfunc();
-    },[])
-
-
   const fetchMoreData = async() => {
-    // await this.setState({page:this.state.page+1})
     let url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page+1}&pagesize=${props.pagesize}`;
     let data= await fetch(url);
     let parseddata=await data.json();
@@ -59,7 +58,7 @@ const News =(props)=> {
     return (
       <div>
         <div className="  my-5">
-            <h1 className='text-center'>NewsMonkey-Top {capfirst(props.category)} Headlines</h1>
+            <h1 className='text-center ' style={{marginTop:'90px'}}>NewsMonkey-Top {capfirst(props.category)} Headlines</h1>
             {loading && <Spinner/>  }
                <InfiniteScroll
                     dataLength={articles.length}
@@ -70,7 +69,7 @@ const News =(props)=> {
                   <div className="container my-5">
                         <div className="row">
                           {  articles.map((element)=>{
-                                return  <div className="col-md-4 mt-3" key={element.url} >
+                                return  <div className="col-md-4 " key={element.url} >
                                               <NewsItem title={element.title?element.title:""} description={element.description?element.description:""} urlimg={element.urlToImage} newsurl={element.url} time={element.publishedAt} author={element.author} source={element.source.name}/>
                                         </div>
                           })}
